@@ -10,7 +10,10 @@ const userSchema = new Schema({
         required: true,
         type: String
     },
-    image : String
+    image : String,
+    favorites: [{
+        type: String
+    }]
 })
 
 const user = mongoose.model('users', userSchema)

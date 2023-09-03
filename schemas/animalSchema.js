@@ -11,12 +11,12 @@ const animalSchema = new Schema({
         type: Number
     },
     image : String,
-    animalType: {
-        required : true,
-        enum: ['cat', 'dog']
+    type: {
+        required: true,
+        type: String
     }
 })
 
-const user = mongoose.model('users', userSchema)
+const animal = mongoose.model('animals', animalSchema)
 
-module.exports = user;
+module.exports = animal;

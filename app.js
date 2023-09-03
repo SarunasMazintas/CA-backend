@@ -22,3 +22,4 @@ app.listen(PORT);
 const router = require('./routes/mainRouter')
 
 app.use('/', router);
+app.use(express.static('public'));
