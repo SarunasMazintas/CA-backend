@@ -10,7 +10,7 @@ router.get('/getUsers', usersController.getUsers);
 router.get('/getUser/:id', usersController.getUser);
 router.post('/login', usersController.login);
 router.post('/register', usersController.register);
-router.patch('/updateUser', usersController.updateUser);
+router.patch('/updateUser/:id', usersController.updateUser);
 
 // animals:
 router.get('/getAnimalsList', animalController.getAnimalsList)

@@ -70,15 +70,15 @@ module.exports = {
         console.log('Hello, user will be updated')
         console.log(req.body);
 
-        if (!req.body._id) {
+        if (!req.params.id) {
             return res.send({ error: 'User ID is expected' })
         }
 
-        if (!mongoose.Types.ObjectId.isValid(req.body._id)) {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
             return res.send({ error: 'User ID format ID is broken' })
         }
 
-        const user = await userSchema.findById(req.body._id);
+        const user = await userSchema.findById(req.params.id);
         if (!user) {
             return res.send({ error: 'User not found!' })
         }
