@@ -13,7 +13,8 @@ const userSchema = new Schema({
     image : String,
     favorites: [{
         type: String
-    }]
+    }],
+    isAdmin : Boolean
 })
 
 const user = mongoose.model('users', userSchema)

@@ -15,6 +15,8 @@ router.patch('/updateUser/:id', usersController.updateUser);
 // animals:
 router.get('/getAnimalsList', animalController.getAnimalsList)
 router.post('/addAnimal', animalController.addAnimal);
+router.patch('/updateAnimal/:id', animalController.updateAnimal);
+router.delete('/removeAnimal/:id', animalController.removeAnimal);
 
 // comments:
 router.get('/getAllComments', commentsController.getAllComments)
