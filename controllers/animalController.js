@@ -15,9 +15,10 @@ module.exports = {
             const animalRequested = new animalSchema({
                 name: req.body.name,
                 age: req.body.age,
-                image: req.body.image,
+                images: req.body.images,
                 type: req.body.type,
             })
+            console.log(animalRequested);
 
             const result = await animalRequested.save();
             createdAnimal = result;

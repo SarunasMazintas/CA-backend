@@ -14,7 +14,10 @@ const animalSchema = new Schema({
     type: {
         required: true,
         type: String
-    }
+    },
+    images: [{
+        type: String
+    }],
 })
 
 const animal = mongoose.model('animals', animalSchema)
