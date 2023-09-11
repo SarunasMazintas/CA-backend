@@ -4,6 +4,7 @@ const router = express.Router();
 const usersController = require('../controllers/usersController');
 const animalController = require('../controllers/animalController');
 const commentsController = require('../controllers/commentsController');
+const typesController = require('../controllers/typesController');
 
 // users:
 router.get('/getUsers', usersController.getUsers);
@@ -22,5 +23,10 @@ router.delete('/removeAnimal/:id', animalController.removeAnimal);
 router.get('/getAllComments', commentsController.getAllComments)
 router.get('/getCommentsByAnimalId/:id', commentsController.getCommentsByAnimalId)
 router.post('/createComment', commentsController.createComment)
+
+// animal types:
+router.get('/getTypes', typesController.getTypes);
+router.post('/addType', typesController.addType);
+router.delete('/deleteType/:id', typesController.deleteType);
 
 module.exports = router

@@ -33,7 +33,38 @@ module.exports = {
         res.send({ animal: createdAnimal });
     },
     updateAnimal: async (req, res) => {
-        res.send({ message: 'Method under construction!' })
+        console.log('Animal to remove: ', req.params.id);
+
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.send({ error: 'Animal ID format is broken' })
+        }
+
+        const animalToUpdate = await animalSchema.findOne({ _id: req.params.id });
+
+        if (!animalToUpdate) {
+            return res.send({ error: 'There is no animal with id ' + req.params.id })
+        }
+
+        try {
+            Object.keys(req.body).forEach(key => {
+
+                if (key !== '_id' && key !== '__v') {
+                    console.log(`Key: ${key}, previous value: ${animalToUpdate[key]}, new value: ${req.body[key]}`)
+                    animalToUpdate[key] = req.body[key];
+                }
+            })
+            console.log(animalToUpdate);
+
+            const result = await animalToUpdate.save();
+            updatedAnimal = result;
+            res.send({ updatedAnimal });
+
+        } catch (error) {
+            console.log('Klaida: ');
+            return res.send({ error: error });
+        }
+
+
     },
     removeAnimal: async (req, res) => {
         console.log('Animal to remove: ', req.params.id);
@@ -43,13 +74,13 @@ module.exports = {
         }
 
         const animalToDelete = await animalSchema.findOne({ _id: req.params.id });
-        
-        if (!animalToDelete){
+
+        if (!animalToDelete) {
             return res.send({ error: 'There is no animal with id ' + req.params.id })
         }
-        
+
         const result = await animalToDelete.deleteOne();
-        const commentsOfAnimal = await commentSchema.deleteMany({animal : req.params.id})
+        const commentsOfAnimal = await commentSchema.deleteMany({ animal: req.params.id })
 
         res.send({ message: `Animal ${req.params.id} removed!` })
     }
