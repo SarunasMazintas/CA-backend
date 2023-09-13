@@ -31,10 +31,8 @@ module.exports = {
             console.log('User not found!')
             return res.send({ message: 'User not found!' });
         }
-        console.log('User found:', user);
 
         const comparePassword = await bcrypt.compare(plainPassword, user.password)
-        console.log('comparison result: ', comparePassword);
 
         res.send({
             message: comparePassword ? `Congrats, you're logged in!` : 'Password is wrong',
@@ -43,19 +41,25 @@ module.exports = {
     },
 
     register: async (req, res) => {
-
+        
         const username = req.body.username
         const plainPassword = req.body.password;
+        const name = req.body.name;
+
+        if (username === '' || plainPassword === '' || name === ''){
+            return res.send({ error: `Username or password is missing!` })
+        }
 
         const userExists = await userSchema.findOne({ username: username });
 
         if (userExists) {
-            return res.send({ message: `User ${username} already exists!` })
+            return res.send({ error: `User ${username} already exists!` })
         };
 
         const hashedPassword = await encryptPassword(plainPassword)
         const user = new userSchema({
             username: username,
+            name: name,
             password: hashedPassword,
             image: 'https://cdn-icons-png.flaticon.com/512/6386/6386976.png'
         })
